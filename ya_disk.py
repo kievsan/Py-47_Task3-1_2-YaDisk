@@ -9,10 +9,14 @@ def err_msg(http_code, msg=''):
     if err:
         print(msg)
         print('Файл не загружен на Yandex.Disk!')
-        print('Программа завершена')
+        print('Программа завершена с ошибкой')
     else:
         print("'Файл загружен на Yandex.Disk!'")
     return err
+
+
+def get_address_api():
+    return 'https://cloud-api.yandex.net/'
 
 
 class YandexDisk:
@@ -28,7 +32,7 @@ class YandexDisk:
 
     def _get_upload_link(self, disk_file_path):
         print(f'Запрашиваем Yandex.Disk API ссылку для загрузки файла {disk_file_path} ...')
-        upload_url = 'https://cloud-api.yandex.net/v1/disk/resources/upload'
+        upload_url = get_address_api() + 'v1/disk/resources/upload'
         headers = self.get_headers()
         params = {"path": disk_file_path, 'overwrite': 'true'}
         response = requests.get(upload_url, params=params, headers=headers)
